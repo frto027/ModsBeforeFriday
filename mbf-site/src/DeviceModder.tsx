@@ -14,6 +14,7 @@ import { Log } from './Logging';
 import { wrapOperation } from './SyncStore';
 import { OpenLogsButton } from './components/OpenLogsButton';
 import { lte as semverLte } from 'semver';
+import { getLang } from './localization/shared';
 
 interface DeviceModderProps {
     device: Adb,
@@ -93,10 +94,7 @@ export function DeviceModder(props: DeviceModderProps) {
     } else if (modStatus.core_mods === null) {
         return <div className='container mainContainer'>
             <OpenLogsButton />
-            <h1>No internet</h1>
-            <p>It seems as though <b>your Quest</b> has no internet connection.</p>
-            <p>To mod Beat Saber, MBF needs to download files such as a mod loader and several essential mods.
-                <br />This occurs on your Quest's connection. Please make sure that WiFi is enabled, then refresh the page.</p>
+            { getLang().noInternet }
         </div>
     }  else if (!(modStatus.core_mods.supported_versions.includes(modStatus.app_info.version)) && !isDeveloperUrl) {
         // Check if we can downgrade to a supported version

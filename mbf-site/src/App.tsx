@@ -16,6 +16,7 @@ import { OperationModals } from './components/OperationModals';
 import { OpenLogsButton } from './components/OpenLogsButton';
 import { isViewingOnIos, isViewingOnMobile, isViewingOnWindows, usingOculusBrowser } from './platformDetection';
 import { SourceUrl } from '.';
+import { getLang, initializeLocalization } from './localization/shared';
 
 type NoDeviceCause = "NoDeviceSelected" | "DeviceInUse";
 
@@ -122,7 +123,7 @@ function ChooseDevice() {
     return <>
         <div className="container mainContainer">
           <Title />
-          <p>To get started, plug your Quest in with a USB-C cable and click the button below.</p>
+          {getLang().toGetStart}
 
           <NoCompatibleDevices />
 
@@ -189,20 +190,7 @@ function DeviceInUse() {
 }
 
 function Title() {
-  return <>
-    <h1>
-      <span className="initial">M</span>
-      <span className="title">ods</span>
-      <span className="initial">B</span>
-      <span className="title">efore</span>
-      <span className="initial">F</span>
-      <span className="title">riday</span>
-      <span className="initial">!</span>
-      <p className="williamGay">william gay</p>
-    </h1>
-    <a href={SourceUrl} target="_blank" rel="noopener noreferrer" className="mobileOnly">Source Code</a>
-    <p>The easiest way to install custom songs for Beat Saber on Quest!</p>
-  </>
+  return getLang().title(SourceUrl)
 }
 
 function ChooseCoreModUrl({ setSpecifiedCoreMods } : { setSpecifiedCoreMods: () => void}) {
@@ -258,6 +246,7 @@ function AppContents() {
 }
 
 function App() {
+  initializeLocalization()
   return <div className='main'>
     <AppContents />
     <CornerMenu />
